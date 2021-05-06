@@ -1,0 +1,19 @@
+<div class="row" *ngIf="data.length">
+  <div class="col-md-12">
+    <h2>{{ headerDate }} Reported COVID-19 Cases</h2>
+    <table class="table table-striped table-hover" >
+      <thead>
+        <tr>
+          <th scope="col">County</th>
+          <th scope="col">Total Cases</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let county of data">
+          <td>{{ county.properties.CO_NAME | titlecase }}</td>
+          <td>{{ county.properties.totalCases }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

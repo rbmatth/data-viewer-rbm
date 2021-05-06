@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-12">
+    <form class="form-inline text-right">
+      <div class="form-group">
+        <label for="caseMonth">Case Month</label>&nbsp;
+        <select
+          name="caseMonth"
+          id="caseMonth"
+          class="form-control"
+          (change)="onChangeMonth(s)"
+          #s>
+          <option [value]="option.caseMonth" *ngFor="let option of monthOptions">
+            {{ option.description }}</option>
+        </select>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="map-frame">
+      <div id="map"></div>
+    </div>
+  </div>
+</div>
