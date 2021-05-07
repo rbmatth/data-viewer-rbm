@@ -8,7 +8,6 @@ import { Observable, Subject } from 'rxjs';
 export class DataService {
   public countyDataChanged = new Subject<{}>();
 
-  private host = 'http://localhost:8000';
   private monthlyData = <{}>[];
   private countiesRequest: Observable<any>;
   private counties: string = '/assets/data/nc-counties.geojson';
@@ -21,7 +20,7 @@ export class DataService {
       this.countyGeoJson = res;
       console.log('County GeoJSON loaded.');
       //this.countyDataChanged.next(this.countyGeoJson)
-    });  
+    });
   }
 
   getMothlyData(caseMonth) {
@@ -30,7 +29,7 @@ export class DataService {
       this.addMonthDataToCounties(caseMonth);
     } else {
       console.log('Getting data for ' + caseMonth);
-      this.http.get(this.host + '/api/month/' + caseMonth + '/', {'responseType': 'json'})
+      this.http.get('/api/month/' + caseMonth + '/', {'responseType': 'json'})
         .subscribe((res: any) => {
           this.currentMonth = caseMonth;
           this.monthlyData[caseMonth] = res;
