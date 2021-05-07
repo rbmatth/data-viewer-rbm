@@ -33,7 +33,6 @@ export class DataService {
       console.log('Getting data for ' + caseMonth);
       this.http.get(environment.apiUrl + '/month/' + caseMonth + '/', {'responseType': 'json'})
         .subscribe((res: any) => {
-          this.currentMonth = caseMonth;
           this.monthlyData[caseMonth] = res;
           this.addMonthDataToCounties(caseMonth);
         });
@@ -41,6 +40,7 @@ export class DataService {
   }
 
   addMonthDataToCounties(caseMonth) {
+    this.currentMonth = caseMonth;
     console.log('Attaching data for ' + caseMonth);
     this.countiesRequest.toPromise().finally(() => {
       for (let feature of this.countyGeoJson.features) {

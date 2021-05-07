@@ -16,7 +16,7 @@ export class MonthTableComponent implements OnInit, AfterViewInit {
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.dataService.countyDataChanged.subscribe((res: JSON) => {
+    this.dataService.countyDataChanged.subscribe((res: any) => {
       this.headerDate = formatDate(this.dataService.currentMonth + '-1','MMMM yyyy', 'en-US');
       this.data = res['features'];
       this.data.sort((a, b) => {
