@@ -3,6 +3,7 @@
 
 use App\Kernel;
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Console\Input\ArgvInput;
 
 use App\Controller\DownloadController;
 
@@ -15,7 +16,8 @@ $kernel->boot();
 $downloader = new DownloadController();
 $downloader->setContainer($kernel->getContainer());
 
-if (false) {
+$input = new ArgvInput();
+if ($input->hasParameterOption('--all', true)) {
     for ($i = 0; $i < 17; $i++) {
         $year = 2020 + (floor($i / 12));
         $month = ($i % 12) + 1;
