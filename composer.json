@@ -12,7 +12,6 @@
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",
-        "heroku/heroku-buildpack-php": "*",
         "nelmio/cors-bundle": "^2.1",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/apache-pack": "^1.0",
@@ -25,6 +24,7 @@
         "symfony/yaml": "5.2.*"
     },
     "require-dev": {
+        "heroku/heroku-buildpack-php": "*"
     },
     "config": {
         "optimize-autoloader": true,
