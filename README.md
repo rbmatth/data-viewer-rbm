@@ -18,7 +18,7 @@ A live demo can be found at: http://data-viewer-rbm.herokuapp.com
 
 The `bin/download` script is run daily using the Heroku Scheduler add-on to update the database with current data.
 
-##Tools Used
+## Tools Used
 - Heroku - https://www.heroku.com
 - Apache 2.4 - https://www.apache.org
 - PHP 7.4 - https://www.php.net
@@ -32,7 +32,7 @@ The `bin/download` script is run daily using the Heroku Scheduler add-on to upda
 - Mapbox - https://www.mapbox.com
 - Leaflet 1.7 - https://leafletjs.com
 
-##Data Sources
+## Data Sources
 - NC Counties | NC DEQ GIS Data 
 
     https://data-ncdenr.opendata.arcgis.com/datasets/nc-counties
