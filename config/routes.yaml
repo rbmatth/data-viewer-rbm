@@ -4,4 +4,3 @@ spa:
   controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
   defaults:
     path: '/index.html'
-    permanent: true
