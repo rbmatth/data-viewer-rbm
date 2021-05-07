@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { environment } from '../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,7 @@ export class DataService {
       this.addMonthDataToCounties(caseMonth);
     } else {
       console.log('Getting data for ' + caseMonth);
-      this.http.get('/api/month/' + caseMonth + '/', {'responseType': 'json'})
+      this.http.get(environment.apiUrl + '/month/' + caseMonth + '/', {'responseType': 'json'})
         .subscribe((res: any) => {
           this.currentMonth = caseMonth;
           this.monthlyData[caseMonth] = res;
