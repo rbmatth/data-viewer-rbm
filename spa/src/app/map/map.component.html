@@ -1,8 +1,9 @@
 <div class="row">
   <div class="col-md-12">
-    <form class="form-inline text-right">
+    <form class="form-inline">
       <div class="form-group">
-        <label for="caseMonth">Case Month</label>&nbsp;
+        <label for="caseMonth">Case Month</label>
+        &nbsp;
         <select
           name="caseMonth"
           id="caseMonth"
@@ -12,6 +13,8 @@
           <option [value]="option.caseMonth" *ngFor="let option of monthOptions">
             {{ option.description }}</option>
         </select>
+        &nbsp;
+        <button type="button" class="btn btn-primary" (click)="resetMap()">Reset Map</button>
       </div>
     </form>
   </div>

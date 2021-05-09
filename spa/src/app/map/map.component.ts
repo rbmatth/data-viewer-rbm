@@ -4,7 +4,7 @@ import * as L from 'leaflet';
 import { DataService } from '../data.service';
 import { formatDate } from '@angular/common';
 import { toTitleCase } from '../common';
-import { NgForm, NgModel } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-map',
@@ -23,7 +23,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   public monthOptions = [];
   private grades = [0, 100, 200, 500, 1000, 2000, 5000, 10000];
   private infoDiv;
-  
+  private defaultZoom: number = 7;
+  private defaultCenter: L.LatLngExpression = [35.1, -79.9];
+
   constructor(private http: HttpClient, private dataService: DataService) {
     // this.caseMonth = formatDate(Date(),'yyyy-MM', 'en-US');
     // console.log('Current Month:', this.caseMonth);
@@ -44,7 +46,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   buildMonthOptions() {
-    var caseMonth;
+    var caseMonth = '';
     for (let i = 0; caseMonth !== this.caseMonth; i++) {
       var year = 2020 + Math.floor(i / 12);
       var month = i % 12 + 1;
@@ -55,10 +57,14 @@ export class MapComponent implements OnInit, AfterViewInit {
     console.log(this.monthOptions);
   }
 
+  resetMap() {
+    this.map.setView(this.defaultCenter, this.defaultZoom);
+  }
+
   initMap() {
     this.map = L.map('map', {
-      center: [35.1, -79.9],
-      zoom: 7
+      center: this.defaultCenter,
+      zoom: this.defaultZoom
     });
 
     L.tileLayer ('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + this.mapboxToken, {
@@ -92,7 +98,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.infoDiv.innerHTML = '<h4>Reported COVID-19 Cases</h4>';
     this.infoDiv.innerHTML += '<h4>' + infoMonth + '</h4>';
     if (props) {
-      let value = props.totalCases;            
+      let value = props.totalCases;
       this.infoDiv.innerHTML +=
         '<b>' + toTitleCase(props.CO_NAME) + ' County</b><br />' + numberFormatter.format(value) + ' cases';
     } else {
