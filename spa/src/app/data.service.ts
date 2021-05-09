@@ -40,9 +40,8 @@ export class DataService {
   }
 
   addMonthDataToCounties(caseMonth) {
-    this.currentMonth = caseMonth;
     console.log('Attaching data for ' + caseMonth);
-    this.countiesRequest.toPromise().finally(() => {
+    if (this.countyGeoJson) {
       for (let feature of this.countyGeoJson.features) {
         feature.properties.totalCases = 0;
         feature.properties.stats = {};
@@ -55,7 +54,12 @@ export class DataService {
         }
       }
       console.log('Attached data for ' + caseMonth);
+      this.currentMonth = caseMonth;
       this.countyDataChanged.next(this.countyGeoJson)
-    });
+    } else {
+      this.countiesRequest.subscribe(() => {
+        this.addMonthDataToCounties(caseMonth);
+      });
+    }
   }
 }
