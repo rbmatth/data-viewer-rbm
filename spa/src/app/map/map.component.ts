@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as L from 'leaflet';
 import { DataService } from '../data.service';
 import { formatDate } from '@angular/common';
 import { toTitleCase } from '../common';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-map',
@@ -12,14 +11,13 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, AfterViewInit {
-  @ViewChild('mapControls') mapControls: NgForm;
-  // @ViewChild('caseMonth') monthContol: NgModel;
   private map: L.Map;
   private geoJson: L.GeoJSON;
   private info: L.Control;
   private legend: L.Control;
   private mapboxToken = "pk.eyJ1Ijoicm1hdHRoZXdzIiwiYSI6ImNrbzh3OTBpazFram0ydW9uODZoeDIxZzgifQ.MhR7riaPgzQ-7yqdmVBvuA";
   public caseMonth = '2021-04';
+  public selectedMonthIndex = 0;
   public monthOptions = [];
   private grades = [0, 100, 200, 500, 1000, 2000, 5000, 10000];
   private infoDiv;
@@ -45,6 +43,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
   }
 
+  test() {
+  }
+
   buildMonthOptions() {
     var caseMonth = '';
     for (let i = 0; caseMonth !== this.caseMonth; i++) {
@@ -54,7 +55,21 @@ export class MapComponent implements OnInit, AfterViewInit {
       var description = formatDate(caseMonth + '-1','MMMM yyyy', 'en-US');
       this.monthOptions.unshift({ caseMonth: caseMonth, description: description });
     }
-    console.log(this.monthOptions);
+    // console.log(this.monthOptions);
+    // this.caseMonth = this.monthOptions[0].caseMonth;
+  }
+
+  previousMonth() {
+    this.selectedMonthIndex += 1;
+    this.caseMonth = this.monthOptions[this.selectedMonthIndex].caseMonth;
+    this.dataService.getMothlyData(this.caseMonth)
+
+  }
+
+  nextMonth() {
+    this.selectedMonthIndex -= 1;
+    this.caseMonth = this.monthOptions[this.selectedMonthIndex].caseMonth;
+    this.dataService.getMothlyData(this.caseMonth)
   }
 
   resetMap() {
@@ -204,8 +219,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.legend.addTo(this.map);
   }
 
-  onChangeMonth(e) {
-    this.caseMonth = e.value;
+  onChangeMonth(s: HTMLSelectElement) {
+    this.selectedMonthIndex = s.selectedIndex;
     this.dataService.getMothlyData(this.caseMonth);
   }
 }

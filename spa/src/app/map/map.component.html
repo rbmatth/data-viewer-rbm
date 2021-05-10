@@ -8,13 +8,26 @@
           name="caseMonth"
           id="caseMonth"
           class="form-control"
-          (change)="onChangeMonth(s)"
-          #s>
+          (change)="onChangeMonth(monthControl)"
+          [(ngModel)]="caseMonth"
+          #monthControl>
           <option [value]="option.caseMonth" *ngFor="let option of monthOptions">
             {{ option.description }}</option>
         </select>
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="previousMonth()"
+          [disabled]="this.selectedMonthIndex === this.monthOptions.length - 1">
+          Prev</button>
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="nextMonth()"
+          [disabled]="this.selectedMonthIndex === 0">
+          Next</button>
         &nbsp;
-        <button type="button" class="btn btn-primary" (click)="resetMap()">Reset Map</button>
+        <button type="button" class="btn btn-default" (click)="resetMap()">Reset Map</button>
       </div>
     </form>
   </div>
